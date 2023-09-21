@@ -5,10 +5,12 @@ import "../../lib/forge-std/src/Test.sol";
 import "../Lottery.sol";
 import "../IWallet.sol";
 import "../Wallet.sol";
+import "./TUSDC.sol";
 
-contract LotteryTest is Test {
+contract LotteryTest2 is Test {
     Lottery public instance;
     Wallet public instanceWallet;
+    TUSDC public tusdcUnstance;
     uint forkID;
 
     function _setUp() public {
@@ -19,7 +21,8 @@ contract LotteryTest is Test {
 
         vm.prank(owner);
         instance = new Lottery();
-        instanceWallet = new Wallet(address(instance), 1);
+        instanceWallet = new Wallet(address(instance), 100);
+        tusdcUnstance = new TUSDC();
 
         emit log_named_address(
             "instanceWallet owner()",
@@ -27,7 +30,10 @@ contract LotteryTest is Test {
         );
 
         vm.prank(owner);
-        instance.setAllowMap(1, address(instanceWallet));
+        instance.setAllowMap(100, address(instanceWallet));
+
+        vm.prank(owner);
+        instance.setCoinConfig(address(tusdcUnstance), 1000, 6);
 
         emit log_named_address("address(instance)", address(instance));
         emit log_named_address("instance.owner()", instance.owner());
@@ -37,26 +43,27 @@ contract LotteryTest is Test {
         emit log_named_address("instance.owner()", instance.owner()); // do not remove this line, forge bug
     }
 
-    function testName() public {
+    function _testName2() public {
         _setUp();
         address addr = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
         vm.deal(addr, 1000 ether);
+        tusdcUnstance.mint(addr, 1000_000 ether);
         address addr2 = 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955;
         vm.deal(addr2, 1000 ether);
+        tusdcUnstance.mint(addr2, 1000_000 ether);
 
         for (uint i = 0; i < 1; i++) {
             vm.prank(addr); // Sets the *next* call's msg.sender to be the input address
-            (bool sent, bytes memory _data) = address(instanceWallet).call{
-                value: 0.5 ether
-            }(""); // deposit
+            tusdcUnstance.approve(address(instanceWallet), 100 ether);
+            vm.prank(addr); // Sets the *next* call's msg.sender to be the input address
+            instanceWallet.erc20Deposit(address(tusdcUnstance), 100 ether); // deposit
 
-            require(sent, "Failed to send ether");
-
+            vm.prank(addr2); // Sets the *next* call's msg.sender to be the input address
+            tusdcUnstance.approve(address(instanceWallet), 100 ether);
             vm.prank(addr2);
-            (sent, _data) = address(instanceWallet).call{value: 0.5 ether}("");
-            require(sent, "Failed to send ether");
+            instanceWallet.erc20Deposit(address(tusdcUnstance), 100 ether); // deposit
         }
-        uint currentIndex = block.number / 20000;
+        uint currentIndex = block.number / 100;
 
         emit log_named_uint("currentIndex", currentIndex);
         emit log_named_address(
@@ -69,8 +76,13 @@ contract LotteryTest is Test {
             instance.getLotteryPoolTotal(
                 currentIndex,
                 1,
-                address(0x0000000000000000000000000000000000000000)
+                address(tusdcUnstance)
             )
+        );
+
+        emit log_named_uint(
+            "instance.getCoinConfig()",
+            instance.getCoinConfig(address(tusdcUnstance))
         );
 
         emit log_named_decimal_uint(
@@ -89,38 +101,22 @@ contract LotteryTest is Test {
 
         emit log_string("====> lottery");
 
-        vm.rollFork(forkID, 17999182 + 40000);
-
-        vm.prank(addr);
-        vm.expectRevert();
-        instance.lottery(
-            1,
-            address(0x0000000000000000000000000000000000000000),
-            currentIndex + 1
-        );
-
-        emit log_named_uint(
-            "==============>instance.getLotteryPoolTotal()",
-            instance.getLotteryPoolTotal(
-                currentIndex,
-                1,
-                address(0x0000000000000000000000000000000000000000)
-            )
-        );
-        vm.prank(addr);
-        instance.lottery(
-            1,
-            address(0x0000000000000000000000000000000000000000),
-            currentIndex
-        );
+        vm.rollFork(forkID, 17999182 + 20000);
 
         vm.expectRevert();
         vm.prank(addr);
-        instance.lottery(
-            1,
-            address(0x0000000000000000000000000000000000000000),
-            currentIndex
-        );
+        instance.lottery(100, address(0x1), 900);
+
+        vm.expectRevert();
+        vm.prank(addr);
+        instance.lottery(100, address(tusdcUnstance), 900);
+
+        vm.prank(addr);
+        instance.lottery(100, address(tusdcUnstance), 899);
+
+        vm.expectRevert();
+        vm.prank(addr);
+        instance.lottery(100, address(tusdcUnstance), 899);
 
         emit log_named_decimal_uint(
             "instance.balanceOf(addr)",
@@ -151,8 +147,8 @@ contract LotteryTest is Test {
         emit log_named_address("instance.owner()", instance.owner());
 
         emit log_named_uint(
-            "instanceWallet owner()",
-            instanceWallet.getBalance()
+            "instanceWallet.getBalanceOf(address(tusdcUnstance))",
+            instanceWallet.getBalanceOf(address(tusdcUnstance))
         );
     }
 }

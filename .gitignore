@@ -13,6 +13,7 @@ docs/
 # Dotenv file
 .env
 aa.json
-src/map.sol
+# src/map.sol
 *.json
 lib
+vite
