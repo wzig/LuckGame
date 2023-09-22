@@ -17,7 +17,7 @@ contract Lottery is ERC20, Ownable {
     mapping(address => uint256[]) private coinConfig;
 
     // token currenttly for commemorative
-    constructor() ERC20("Lottery", "Lottery") Ownable(msg.sender) {
+    constructor() ERC20("Luck", "Luck") Ownable(msg.sender) {
         lotteryBlockNum = 20000;
         _mint(msg.sender, 1_000_000 * 10 ** decimals()); // kind of for commemorative
     }
