@@ -162,7 +162,7 @@ contract Lottery is ERC20, Ownable {
         uint256 randomNumber = uint256(
             keccak256(
                 abi.encodePacked(
-                    block.prevrandao, // almost unpredictable for previous block
+                    block.prevrandao, // unpredictable for previous block
                     block.number,
                     blockhash(block.timestamp - 1),
                     msg.sender
