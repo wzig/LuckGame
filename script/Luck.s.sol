@@ -2,22 +2,22 @@
 pragma solidity ^0.8.20;
 
 import "../lib/forge-std/src/Script.sol";
-import "../src/Lottery.sol";
+import "../src/Luck.sol";
 import "../src/Wallet.sol";
 import "../src/test/TUSDC.sol";
 
 contract LotteryScript is Script {
     function setUp() public {}
 
-    Lottery instance;
+    Luck instance;
     TUSDC tusdc;
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
 
-        instance = new Lottery();
-        console.log("Lottery Contract deployed to %s", address(instance));
+        instance = new Luck();
+        console.log("Luck Contract deployed to %s", address(instance));
         console.log("instance.owner()", instance.owner());
         instance.setLotteryBlockNum(200);
 

@@ -2,12 +2,12 @@
 pragma solidity ^0.8.20;
 
 import "../../lib/forge-std/src/Test.sol";
-import "../Lottery.sol";
+import "../Luck.sol";
 import "../IWallet.sol";
 import "../Wallet.sol";
 
 contract LotteryTest is Test {
-    Lottery public instance;
+    Luck public instance;
     Wallet public instanceWallet;
     uint forkID;
 
@@ -18,7 +18,7 @@ contract LotteryTest is Test {
         vm.deal(owner, 1000 ether);
 
         vm.prank(owner);
-        instance = new Lottery();
+        instance = new Luck();
         instanceWallet = new Wallet(address(instance), 1);
 
         emit log_named_address(

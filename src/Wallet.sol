@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 import "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
-import "./Lottery.sol";
+import "./Luck.sol";
 import "./IWallet.sol";
 
 contract Wallet is Ownable, IWallet {
     uint public cap;
 
     // Declare state variable for the other contract
-    Lottery public lotteryContract;
+    Luck public lotteryContract;
 
     constructor(address dest, uint _cap) Ownable(dest) {
         cap = _cap;
-        lotteryContract = Lottery(dest);
+        lotteryContract = Luck(dest);
     }
 
     receive() external payable {

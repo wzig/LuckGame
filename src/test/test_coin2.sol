@@ -2,13 +2,13 @@
 pragma solidity ^0.8.20;
 
 import "../../lib/forge-std/src/Test.sol";
-import "../Lottery.sol";
+import "../Luck.sol";
 import "../IWallet.sol";
 import "../Wallet.sol";
 import "./TUSDC.sol";
 
 contract LotteryTest2 is Test {
-    Lottery public instance;
+    Luck public instance;
     Wallet public instanceWallet;
     TUSDC public tusdcUnstance;
     uint forkID;
@@ -20,7 +20,7 @@ contract LotteryTest2 is Test {
         vm.deal(owner, 1000 ether);
 
         vm.prank(owner);
-        instance = new Lottery();
+        instance = new Luck();
         instanceWallet = new Wallet(address(instance), 100);
         tusdcUnstance = new TUSDC();
 
@@ -43,7 +43,7 @@ contract LotteryTest2 is Test {
         emit log_named_address("instance.owner()", instance.owner()); // do not remove this line, forge bug
     }
 
-    function _testName2() public {
+    function testName2() public {
         _setUp();
         address addr = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
         vm.deal(addr, 1000 ether);

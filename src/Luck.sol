@@ -9,7 +9,7 @@ import "./IWallet.sol";
 // import "../lib/forge-std/src/Test.sol";
 
 /// @custom:security-contact
-contract Lottery is ERC20, Ownable {
+contract Luck is ERC20, Ownable {
     using Iterable2UintMapping for Iterable2UintMapping.Map;
     Iterable2UintMapping.Map private lotteryPool;
 
