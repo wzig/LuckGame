@@ -21,13 +21,27 @@ contract Wallet is Ownable, IWallet {
             "amount error"
         );
 
-        lotteryContract._deposit(cap, address(0x0000000000000000000000000000000000000000), msg.sender, msg.value);
+        lotteryContract._deposit(
+            cap,
+            address(0x0000000000000000000000000000000000000000),
+            msg.sender,
+            msg.value
+        );
+    }
+
+    uint256 private guardCounter;
+
+    modifier nonReentrant() {
+        require(guardCounter == 0, "Reentrant call detected");
+        guardCounter = 1;
+        _;
+        guardCounter = 0;
     }
 
     function sendEther(
         address payable to,
         uint256 _amount
-    ) public payable override onlyOwner {
+    ) public payable override onlyOwner nonReentrant {
         (bool sent, bytes memory _data) = address(to).call{value: _amount}("");
         require(sent, "Failed to sendEther");
     }
@@ -59,7 +73,7 @@ contract Wallet is Ownable, IWallet {
         address to,
         address tokenAddress,
         uint256 amount
-    ) external override onlyOwner {
+    ) external override onlyOwner nonReentrant {
         require(balances[tokenAddress] >= amount, "Insufficient Token balance");
         IERC20 token = IERC20(tokenAddress);
         balances[tokenAddress] -= amount;
