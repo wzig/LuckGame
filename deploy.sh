@@ -39,7 +39,7 @@ cast send $USDT \
     --from $LUCKY_USER \
     "transfer(address,uint256)(bool)" \
     $ALICE \
-    1220000115485124
+    1220000115485
 
 cast call $USDT \
     "balanceOf(address)(uint256)" \
