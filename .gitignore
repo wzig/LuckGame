@@ -17,3 +17,4 @@ aa.json
 *.json
 lib
 vite
+deploy.sh

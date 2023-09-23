@@ -47,9 +47,6 @@ contract LotteryScript is Script {
         instance.setCoinConfig(address(tusdc), 1000, 6);
 
         tusdc.mint(0x5E661B79FE2D3F6cE70F5AAC07d8Cd9abb2743F1, 100000 ether);
-        tusdc.mint(0x61097BA76cD906d2ba4FD106E757f7Eb455fc295, 100000 ether);
-        tusdc.mint(0x87BdCE72c06C21cd96219BD8521bDF1F42C78b5e, 100000 ether);
-        tusdc.mint(0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc, 100000 ether);
         tusdc.mint(0x9DCCe783B6464611f38631e6C851bf441907c710, 100000 ether);
     }
 }
