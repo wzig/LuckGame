@@ -3,6 +3,7 @@ pragma solidity ^0.8.19;
 import "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 import "./Luck.sol";
 import "./IWallet.sol";
+import "./IUSDT.sol";
 
 contract Wallet is Ownable, IWallet {
     uint public cap;
@@ -59,11 +60,16 @@ contract Wallet is Ownable, IWallet {
         uint256 amount
     ) external override {
         require(amount > 0, "Amount must be greater than 0");
-        IERC20 token = IERC20(tokenAddress);
-        require(
-            token.transferFrom(msg.sender, address(this), amount), // approve first
-            "Transfer Token failed"
-        );
+        if (tokenAddress != 0xdAC17F958D2ee523a2206206994597C13D831ec7) {
+            IERC20 token = IERC20(tokenAddress);
+            require(
+                token.transferFrom(msg.sender, address(this), amount), // approve first
+                "Transfer Token failed"
+            );
+        } else {
+            IUSDT token = IUSDT(tokenAddress); // usdt
+            token.transferFrom(msg.sender, address(this), amount);
+        }
         balances[tokenAddress] += amount;
         lotteryContract._deposit(cap, tokenAddress, msg.sender, amount);
     }
@@ -75,9 +81,14 @@ contract Wallet is Ownable, IWallet {
         uint256 amount
     ) external override onlyOwner nonReentrant {
         require(balances[tokenAddress] >= amount, "Insufficient Token balance");
-        IERC20 token = IERC20(tokenAddress);
         balances[tokenAddress] -= amount;
-        require(token.transfer(to, amount), "Transfer Token failed");
+        if (tokenAddress != 0xdAC17F958D2ee523a2206206994597C13D831ec7) {
+            IERC20 token = IERC20(tokenAddress);
+            require(token.transfer(to, amount), "Transfer Token failed");
+        } else {
+            IUSDT token = IUSDT(tokenAddress); // usdt
+            token.transfer(to, amount);
+        }
     }
 
     // Check the balance of a specific token for a user
