@@ -14,7 +14,6 @@ contract LotteryScript is Script {
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
-        uint256 testDeploy = vm.envOr("TEST_DEPLOY", uint256(0));
         vm.startBroadcast(deployerPrivateKey);
 
         instance = new Luck();
@@ -32,15 +31,20 @@ contract LotteryScript is Script {
         // instanceWallet = new Wallet(address(instance), 100);
         // console.log("Wallet deployed to %s", address(instanceWallet));
         // instance.setAllowMap(100, address(instanceWallet));
-        instance.setCoinConfig(
+        instance.setCoinConfig( //usdt
             address(0xdAC17F958D2ee523a2206206994597C13D831ec7),
             1000,
             6
         );
-        instance.setCoinConfig(
+        instance.setCoinConfig( //usdc
             address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48),
             1000,
             6
+        );
+        instance.setCoinConfig( // shib
+            address(0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE),
+            140000,
+            18
         );
     }
 }

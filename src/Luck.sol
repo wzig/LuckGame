@@ -18,7 +18,7 @@ contract Luck is ERC20, Ownable {
 
     // token currenttly for commemorative
     constructor() ERC20("Luck", "Luck") Ownable(msg.sender) {
-        lotteryBlockNum = 20000;
+        lotteryBlockNum = 8000;
         _mint(msg.sender, 1_000_000 * 10 ** decimals()); // kind of for commemorative
     }
 
