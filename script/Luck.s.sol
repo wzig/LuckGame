@@ -32,6 +32,11 @@ contract LotteryScript is Script {
         // instanceWallet = new Wallet(address(instance), 100);
         // console.log("Wallet Contract deployed to %s", address(instanceWallet));
         // instance.setAllowMap(100, address(instanceWallet));
+        instance.setCoinConfig(
+            address(0xdAC17F958D2ee523a2206206994597C13D831ec7),
+            1000,
+            6
+        );
 
         if (testDeploy > 0) {
             console.log("testDeploy TEST_DEPLOY", testDeploy);
