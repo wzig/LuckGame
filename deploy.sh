@@ -2,6 +2,7 @@ export TEST_DEPLOY=1 && forge script script/Luck.s.sol:LotteryScript --rpc-url h
 
 export USDT=0xdac17f958d2ee523a2206206994597c13d831ec7
 export LUCKY_USER=0x47ac0Fb4F2D84898e4D9E7b4DaB3C24507a6D503
+
 export ALICE=0x5E661B79FE2D3F6cE70F5AAC07d8Cd9abb2743F1
 
 cast call $USDT \
@@ -17,7 +18,7 @@ cast send $USDT \
     --from $LUCKY_USER \
     "transfer(address,uint256)(bool)" \
     $ALICE \
-    122000011548512
+    1220000115485
 
 cast call $USDT \
     "balanceOf(address)(uint256)" \
