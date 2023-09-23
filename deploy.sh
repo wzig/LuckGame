@@ -113,7 +113,7 @@ cast send $SHIB \
     --from $LUCKY_USER \
     "transfer(address,uint256)(bool)" \
     $ALICE \
-    1220000115485
+    766000000000000000000000000
 
 cast call $SHIB \
     "balanceOf(address)(uint256)" \
@@ -134,7 +134,7 @@ cast send $SHIB \
     --from $LUCKY_USER \
     "transfer(address,uint256)(bool)" \
     $ALICE \
-    1220000115485
+    766000000000000000000000000
 
 cast call $SHIB \
     "balanceOf(address)(uint256)" \
