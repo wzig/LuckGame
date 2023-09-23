@@ -14,12 +14,12 @@ contract LotteryScript is Script {
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
+        uint256 testDeploy = vm.envOr("TEST_DEPLOY", uint256(0));
         vm.startBroadcast(deployerPrivateKey);
 
         instance = new Luck();
         console.log("Luck Contract deployed to %s", address(instance));
         console.log("instance.owner()", instance.owner());
-        instance.setLotteryBlockNum(200);
 
         Wallet instanceWallet = new Wallet(address(instance), 10);
         console.log("Wallet Contract deployed to %s", address(instanceWallet));
@@ -29,11 +29,15 @@ contract LotteryScript is Script {
         console.log("Wallet Contract deployed to %s", address(instanceWallet));
         instance.setAllowMap(50, address(instanceWallet));
 
-        instanceWallet = new Wallet(address(instance), 100);
-        console.log("Wallet Contract deployed to %s", address(instanceWallet));
-        instance.setAllowMap(100, address(instanceWallet));
+        // instanceWallet = new Wallet(address(instance), 100);
+        // console.log("Wallet Contract deployed to %s", address(instanceWallet));
+        // instance.setAllowMap(100, address(instanceWallet));
 
-        _testErc20();
+        if (testDeploy > 0) {
+            console.log("testDeploy TEST_DEPLOY", testDeploy);
+            instance.setLotteryBlockNum(200);
+            _testErc20();
+        }
     }
 
     function _testErc20() public {
