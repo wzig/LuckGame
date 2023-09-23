@@ -19,7 +19,7 @@ contract LotteryScript is Script {
         instance = Luck(0xc48078a734c2e22D43F54B47F7a8fB314Fa5A601);
         instance.setCoinConfig( // shib
             address(0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE),
-            200000000,
+            130000000,
             18
         );
     }
