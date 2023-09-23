@@ -140,16 +140,3 @@ cast call 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0 "getBalance()(uint256)" --r
 8603853182003814300330472690
 
 anvil -f https://mainnet.infura.io/v3/e5ebbe58d5c644478647da843d5b465c --chain-id 31337 -b 12  -a 30 
-
-anvil -a 30 -f https://mainnet.base.org --chain-id 31337 -b 2
-
----
-
-export PRIVATE_KEY=0xdbda1821b80551c9d65939329250298aa3472ba22feea921c0cf5d620ea67b97
-0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f
-
-tusdc.mint(0x5E661B79FE2D3F6cE70F5AAC07d8Cd9abb2743F1, 100000 ether);
-tusdc.mint(0x61097BA76cD906d2ba4FD106E757f7Eb455fc295, 100000 ether);
-tusdc.mint(0x87BdCE72c06C21cd96219BD8521bDF1F42C78b5e, 100000 ether);
-tusdc.mint(0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc, 100000 ether);
-tusdc.mint(0x9DCCe783B6464611f38631e6C851bf441907c710, 100000 ether);
