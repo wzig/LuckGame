@@ -139,9 +139,7 @@ cast call 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0 "getBalance()(uint256)" --r
 
 8603853182003814300330472690
 
-anvil -f https://mainnet.infura.io/v3/e5ebbe58d5c644478647da843d5b465c -b 12
-
-anvil -f https://goerli.infura.io/v3/e5ebbe58d5c644478647da843d5b465c
+anvil -f https://mainnet.infura.io/v3/e5ebbe58d5c644478647da843d5b465c --chain-id 31337 -b 12  -a 30 
 
 anvil -a 30 -f https://mainnet.base.org --chain-id 31337 -b 2
 
