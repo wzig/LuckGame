@@ -162,7 +162,7 @@ contract Luck is ERC20, Ownable {
         uint256 randomNumber = uint256(
             keccak256(
                 abi.encodePacked(
-                    block.prevrandao, // unpredictable for previous block
+                    block.prevrandao, // prevrandao unpredictable for previous block which ensures everybody is fair!!
                     block.number,
                     blockhash(block.timestamp - 1),
                     msg.sender
