@@ -193,8 +193,8 @@ contract Luck is ERC20, Ownable {
                         lotteryBlockNum;
                 }
                 uint256 feeService = lotteryPool.poolTotal[index][cap][coin] /
-                    100; // fee = 0.5 % , not like greedy 5%, or even 10% (ft)
-                uint256 feeTrigger = feeService;
+                    100; // fee = 1 % of poolTotal
+                uint256 feeTrigger = feeService; //  1 % of poolTotal to drawer
 
                 _distribute(index, cap, coin, addr, feeService, feeTrigger);
 
