@@ -18,19 +18,19 @@ contract LotteryScript is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         instance = new Luck();
-        console.log("Luck Contract deployed to %s", address(instance));
+        console.log("Luck deployed to %s", address(instance));
         console.log("instance.owner()", instance.owner());
 
         Wallet instanceWallet = new Wallet(address(instance), 10);
-        console.log("Wallet Contract deployed to %s", address(instanceWallet));
+        console.log("Wallet deployed to %s", address(instanceWallet));
         instance.setAllowMap(10, address(instanceWallet));
 
         instanceWallet = new Wallet(address(instance), 50);
-        console.log("Wallet Contract deployed to %s", address(instanceWallet));
+        console.log("Wallet deployed to %s", address(instanceWallet));
         instance.setAllowMap(50, address(instanceWallet));
 
         // instanceWallet = new Wallet(address(instance), 100);
-        // console.log("Wallet Contract deployed to %s", address(instanceWallet));
+        // console.log("Wallet deployed to %s", address(instanceWallet));
         // instance.setAllowMap(100, address(instanceWallet));
         instance.setCoinConfig(
             address(0xdAC17F958D2ee523a2206206994597C13D831ec7),
@@ -47,7 +47,7 @@ contract LotteryScript is Script {
 
     function _testErc20() public {
         tusdc = new TUSDC();
-        console.log("tusdc Contract deployed to %s", address(tusdc));
+        console.log("tusdc deployed to %s", address(tusdc));
 
         instance.setCoinConfig(address(tusdc), 1000, 6);
 
