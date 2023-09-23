@@ -37,21 +37,10 @@ contract LotteryScript is Script {
             1000,
             6
         );
-
-        if (testDeploy > 0) {
-            console.log("testDeploy TEST_DEPLOY", testDeploy);
-            instance.setLotteryBlockNum(200);
-            _testErc20();
-        }
-    }
-
-    function _testErc20() public {
-        tusdc = new TUSDC();
-        console.log("tusdc deployed to %s", address(tusdc));
-
-        instance.setCoinConfig(address(tusdc), 1000, 6);
-
-        tusdc.mint(0x5E661B79FE2D3F6cE70F5AAC07d8Cd9abb2743F1, 100000 ether);
-        tusdc.mint(0x9DCCe783B6464611f38631e6C851bf441907c710, 100000 ether);
+        instance.setCoinConfig(
+            address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48),
+            1000,
+            6
+        );
     }
 }
