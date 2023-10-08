@@ -63,7 +63,7 @@ contract LotteryTest2 is Test {
             vm.prank(addr2);
             instanceWallet.erc20Deposit(address(tusdcUnstance), 100 ether); // deposit
         }
-        uint currentIndex = block.number / 100;
+        uint currentIndex = block.number / 8000;
 
         emit log_named_uint("currentIndex", currentIndex);
         emit log_named_address(
@@ -101,22 +101,22 @@ contract LotteryTest2 is Test {
 
         emit log_string("====> lottery");
 
-        vm.rollFork(forkID, 17999182 + 20000);
+        vm.rollFork(forkID, 17999182 + 8000);
 
         vm.expectRevert();
         vm.prank(addr);
-        instance.lottery(100, address(0x1), 900);
+        instance.lottery(100, address(0x1), currentIndex);
 
         vm.expectRevert();
         vm.prank(addr);
-        instance.lottery(100, address(tusdcUnstance), 900);
+        instance.lottery(100, address(tusdcUnstance), currentIndex + 1);
 
         vm.prank(addr);
-        instance.lottery(100, address(tusdcUnstance), 899);
+        instance.lottery(100, address(tusdcUnstance), currentIndex);
 
         vm.expectRevert();
         vm.prank(addr);
-        instance.lottery(100, address(tusdcUnstance), 899);
+        instance.lottery(100, address(tusdcUnstance), currentIndex);
 
         emit log_named_decimal_uint(
             "instance.balanceOf(addr)",

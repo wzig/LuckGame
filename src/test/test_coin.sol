@@ -56,7 +56,7 @@ contract LotteryTest is Test {
             (sent, _data) = address(instanceWallet).call{value: 0.5 ether}("");
             require(sent, "Failed to send ether");
         }
-        uint currentIndex = block.number / 20000;
+        uint currentIndex = block.number / 8000;
 
         emit log_named_uint("currentIndex", currentIndex);
         emit log_named_address(
@@ -89,7 +89,7 @@ contract LotteryTest is Test {
 
         emit log_string("====> lottery");
 
-        vm.rollFork(forkID, 17999182 + 40000);
+        vm.rollFork(forkID, 17999182 + 8000);
 
         vm.prank(addr);
         vm.expectRevert();
