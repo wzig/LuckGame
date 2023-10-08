@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "../scan/ERC20.sol";
-import "./../map.sol";
+import "../scan/map.sol";
 
 /// @custom:security-contact
 contract TUSDC is ERC20 {

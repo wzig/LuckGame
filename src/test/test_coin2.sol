@@ -2,9 +2,9 @@
 pragma solidity ^0.8.20;
 
 import "../../lib/forge-std/src/Test.sol";
-import "../Luck.sol";
-import "../IWallet.sol";
-import "../Wallet.sol";
+import "../scan/Luck.sol";
+import "../scan/IWallet.sol";
+import "../scan/Wallet.sol";
 import "./TUSDC.sol";
 
 contract LotteryTest2 is Test {

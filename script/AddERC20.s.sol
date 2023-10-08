@@ -2,8 +2,8 @@
 pragma solidity ^0.8.20;
 
 import "../lib/forge-std/src/Script.sol";
-import "../src/Luck.sol";
-import "../src/Wallet.sol";
+import "../src/scan/Luck.sol";
+import "../src/scan/Wallet.sol";
 
 contract LotteryScript is Script {
     function setUp() public {}
