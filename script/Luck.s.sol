@@ -2,15 +2,13 @@
 pragma solidity ^0.8.20;
 
 import "../lib/forge-std/src/Script.sol";
-import "../src/Luck.sol";
-import "../src/Wallet.sol";
-import "../src/test/TUSDC.sol";
+import "../src/scan/Luck.sol";
+import "../src/scan/Wallet.sol";
 
 contract LotteryScript is Script {
     function setUp() public {}
 
     Luck instance;
-    TUSDC tusdc;
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
